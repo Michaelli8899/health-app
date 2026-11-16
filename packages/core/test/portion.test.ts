@@ -39,3 +39,15 @@ describe('portion geometry', () => {
     expect(applyCalibration(e, 0)).toBe(e);
   });
 });
+
+import { estimateByClass } from '../src';
+describe('portion classes', () => {
+  it('a typical serving of rice (≈ 100 cm² pile) lands near a cup', () => {
+    const e = estimateByClass(100, 'pile', 0.668);
+    expect(e.grams).toBeGreaterThan(90);
+    expect(e.grams).toBeLessThan(160);
+  });
+  it('steak ignores bulk density', () => {
+    expect(estimateByClass(80, 'slab', 0.59).grams).toBeCloseTo(80 * 1.6 * 1.05);
+  });
+});
