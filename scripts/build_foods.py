@@ -205,8 +205,10 @@ def portion_class(cat: str, group: str, d: str) -> str:
     """How the food sits on a plate. Drives the thickness table in packages/core."""
     if group == "beverage" or has(d, "soup", "broth", "milk, ", "juice", "smoothie", "shake"):
         return "liquid"
-    if has(d, "sauce", "gravy", "dressing", "syrup", "dip", "salsa", "ketchup", "mustard", "jam", "jelly",
-           "honey", "butter,", "oil", "spread", "mayonnaise", "hummus"):
+    # Only the leading name segment decides "sauce" ("Spaghetti with meat sauce" is a pasta dish).
+    head = d.split(",")[0].strip()
+    if re.match(r"(sauce|gravy|salad dressing|dressing|syrups?|dip|salsa|catsup|ketchup|mustard|jams?|jellies|jelly|"
+                r"honey|butter|oil|margarine|spreads?|mayonnaise|hummus|peanut butter|nut butter)\b", head):
         return "sauce"
     if has(d, "lettuce", "spinach, raw", "greens", "arugula", "salad", "kale, raw", "cabbage, raw", "sprouts"):
         return "leafy"
