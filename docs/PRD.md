@@ -46,7 +46,7 @@ Priority: **P0** = MVP · **P1** = next release · **P2** = later.
 | PR-3 | Default macros: protein 1.6–2.2 g/kg, fat 25–30% of kcal, carbs the remainder. Each one can be overridden. |
 | PR-4 | Metric only: kg, cm, g, ml. |
 | PR-5 | Water target (default 35 ml/kg, editable). |
-| PR-6 | **Usual plate diameter (cm)**, used as the size reference for photo portions. A default of 27 cm is used until it's set, and the app suggests measuring. |
+| PR-6 | **Usual plate diameter (cm)**, used as the size reference for photo portions. Default 27 cm. Set it by typing a measurement or with **one-photo calibration**: put any bank card (ISO/IEC 7810 ID-1, 85.60 × 53.98 mm) on the empty plate and take a picture; the app detects both and calculates the diameter. |
 
 ### 4.2 Food logging — P0
 | ID | Requirement | Pri |
@@ -271,11 +271,9 @@ Photo ─▶ resize (≤1024 px) ─▶ Web Worker (Transformers.js, WebGPU→WA
 ## 10. Decisions and open questions
 **Decided:** PWA first, Expo later · metric (kg) only · public repo, hosted on GitHub Pages · no paid APIs or servers; on-device open-source AI · no barcode scanning · no exercise calorie estimates.
 
-**Open:**
-1. Which iPhone model and iOS version? WebGPU (fast path) needs iOS 26. Older phones use the slower WASM path.
-2. Usual plate diameter in cm (measure your most-used dinner plate).
-3. Any dietary focus to prioritise (e.g. vegetarian, low sodium, high protein, fasting windows)?
-4. OK to collect ~30 meal photos with kitchen-scale weights for the Phase 0 evaluation set? It's the only way to know how accurate the free approach really is.
+**Answered (2026-11-16):** target device is an **iPhone 15 Pro on the latest iOS** (WebGPU available, 8 GB RAM), so WebGPU is the primary path and WASM is only a fallback · plate diameter unknown, so default to 27 cm plus card calibration (PR-6) · no specific diet, so standard guideline targets · owner will build the 30-meal evaluation set.
+
+**Open:** none blocking. See `docs/phase-0-plan.md` for the next steps.
 
 ---
 
