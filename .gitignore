@@ -1,0 +1,10 @@
+node_modules/
+dist/
+coverage/
+.vite/
+*.log
+.DS_Store
+# raw downloads used by dataset scripts (outputs are committed, inputs are not)
+scripts/.cache/
+# never commit personal evaluation photos
+eval-data/
