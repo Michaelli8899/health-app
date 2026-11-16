@@ -30,8 +30,11 @@ export interface EvalMealRow {
   id?: number;
   takenAt: number;
   photo: Blob;
-  truth: { foodId: string; name: string; grams: number }[];
-  runs: unknown[]; // per-variant pipeline outputs + timings
+  result: import('../vision/types').AnalysisResult;
+  /** Per detected item: the true food and scale weight, or 'not_food' for false/duplicate detections. */
+  labels: ({ foodId: string; grams: number } | 'not_food' | null)[];
+  /** Foods on the plate that no box covered. */
+  missed: { foodId: string; grams: number }[];
 }
 
 export class HealthDB extends Dexie {

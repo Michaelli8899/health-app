@@ -8,6 +8,27 @@ Exit criteria (from PRD §7):
 
 ---
 
+## Status (2026-11-16)
+
+| Item | Status |
+|------|--------|
+| A1–A3 monorepo, PWA shell, CI, Pages workflow | ✅ done. Deploys once the branch is merged to `main` and Pages is set to GitHub Actions |
+| A4 Dexie schema v1 | ✅ done (profile, food log, water, weights, photo meals, eval meals); CRUD tests come with Phase 1 screens |
+| A5 core calculations | ✅ done; 19 unit tests |
+| B1–B4 foods.json | ✅ 7,283 USDA SR Legacy foods; density for 2,505; NOVA, allergens, portion class by rules |
+| B5 CLIP text embeddings | ✅ 192 visual foods + 8 non-food classes |
+| B6–B7 exercises, attribution page | ⏳ Phase 1 (not needed for the spike) |
+| C1, C2, C4–C9 Lab | ✅ worker, Grounding DINO (two passes), SlimSAM, plate scale, CLIP top-5, portions, card calibration, evaluation mode, metrics, export |
+| C3 Florence-2 variant | ⏳ deferred: added only if Grounding DINO results on your phone are weak, to keep the download small |
+| C10 CI vision check | ⚠️ opt-in only (`RUN_MODEL_TESTS=1`): it downloads ~400 MB of models, too heavy for every CI run |
+
+**Findings so far** (10 openly licensed web photos; your own meals are the real test):
+- **Identification:** right food was the top match on 7/10 photos, and in the top 5 on 9/10 (whole-image CLIP). Cropping to detected items fixed the fried egg.
+- **Detection:** in one combined prompt, "food" suppresses plate detection, so the detector runs two passes.
+- **Plate scale:** SAM plate masks are unreliable (mask/box agreement 0.06–1.02), so scale comes from the plate's detected box.
+- **Segmentation:** SAM sometimes returns an empty mask for white food on a white plate. Box-ellipse fallback.
+- **Speed:** browser WASM fallback takes ~43 s per photo in a headless Linux container (single-threaded, no WebGPU). The iPhone WebGPU number is what Phase 0 must measure.
+
 ## Workstream A — Repo and app foundations
 
 | # | Task | Done when |

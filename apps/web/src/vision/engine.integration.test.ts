@@ -27,7 +27,7 @@ describe.runIf(run)('MealVisionEngine (integration)', () => {
       const r = await engine.analyze(img, { plateDiameterCm: 27 });
       const summary = r.items.map((it) =>
         `${it.candidates.slice(0, 3).map((c) => c.label).join('/')}${it.likelyNonFood ? '(?)' : ''} ${it.portion ? `${it.portion.grams}g[${it.portion.low}-${it.portion.high}] ${it.portion.method}` : ''}`);
-      console.log(`${f}: plate=${r.plate.kind} ${Math.round(r.plate.majorAxisPx)}x${Math.round(r.plate.minorAxisPx)} | ${JSON.stringify(r.timingsMs)}\n   ` + summary.join('\n   '));
+      console.log(`${f}: plate=${r.plate.kind} agree=${r.plate.maskAgreement} cov=${r.items.map((i) => i.maskCoverage).join(",")} ${Math.round(r.plate.majorAxisPx)}x${Math.round(r.plate.minorAxisPx)} | ${JSON.stringify(r.timingsMs)}\n   ` + summary.join('\n   '));
       expect(r.items.length).toBeGreaterThan(0);
       expect(r.imageEmbedding).toHaveLength(512);
     }

@@ -92,6 +92,13 @@ export class MealVisionEngine {
     };
   }
 
+  /** Raw detections for a prompt (used by calibration). Boxes in image pixels. */
+  async detect(image: RawImage, prompt: string, threshold: number): Promise<Detection[]> {
+    await this.load();
+    const raw = (await this.detector!(image, [prompt], { threshold })) as { box: { xmin: number; ymin: number; xmax: number; ymax: number }; label: string; score: number }[];
+    return raw.map((d) => ({ box: [d.box.xmin, d.box.ymin, d.box.xmax, d.box.ymax] as Box, label: d.label, score: d.score }));
+  }
+
   async analyze(
     input: RawImage,
     opts: { plateDiameterCm: number; prior?: ReadonlyMap<string, number>; detThreshold?: number },
@@ -134,23 +141,19 @@ export class MealVisionEngine {
     const masks = await time('segment', () => this.segment(image, segBoxes));
 
     // 3 SCALE ------------------------------------------------------------------------------------
-    const plate: PlateResult = { kind: 'none', box: null, majorAxisPx: 0, minorAxisPx: 0, diameterCm: opts.plateDiameterCm };
+    const plate: PlateResult = { kind: 'none', box: null, majorAxisPx: 0, minorAxisPx: 0, diameterCm: opts.plateDiameterCm, maskAgreement: null };
     if (container) {
-      const m = masks[masks.length - 1]!;
-      const e = fitEllipse(m, W);
+      // Plate scale from the detector's box: for a round plate seen at an angle, box width ≈ diameter and
+      // box height ≈ foreshortened diameter. This proved more stable than fitting the SAM plate mask,
+      // which sometimes covers only the rim or part of the plate. The mask ellipse is kept as a check.
       const [x1, y1, x2, y2] = container.box;
       const bw = x2 - x1, bh = y2 - y1;
       plate.kind = container.label as 'plate' | 'bowl';
       plate.box = container.box;
-      // Trust the mask ellipse unless it disagrees wildly with the box (bad mask).
-      const boxMajor = Math.max(bw, bh);
-      if (e && e.majorAxisPx > 0.6 * boxMajor && e.majorAxisPx < 1.3 * boxMajor) {
-        plate.majorAxisPx = e.majorAxisPx;
-        plate.minorAxisPx = e.minorAxisPx;
-      } else {
-        plate.majorAxisPx = boxMajor;
-        plate.minorAxisPx = Math.min(bw, bh);
-      }
+      plate.majorAxisPx = Math.max(bw, bh);
+      plate.minorAxisPx = Math.min(bw, bh);
+      const e = fitEllipse(masks[masks.length - 1]!, W);
+      plate.maskAgreement = e ? Math.round((e.majorAxisPx / plate.majorAxisPx) * 100) / 100 : null;
     }
     const cmPerPx = plate.kind !== 'none' ? opts.plateDiameterCm / plate.majorAxisPx : null;
 
@@ -176,13 +179,12 @@ export class MealVisionEngine {
         // A cup/glass can be measured when a plate in the same photo gives the scale.
         // A bowl on its own has no reference, so the portion code falls back to a typical rim size.
         const widthCm = inCup && cmPerPx ? (inCup.box[2] - inCup.box[0]) * cmPerPx : null;
-        const portion = top
-          ? estimatePortion(top, {
-              areaCm2,
-              container: cont ? { kind: cont.label as 'bowl' | 'cup' | 'glass', widthCm } : undefined,
-            })
-          : null;
-        return { box: f.box, detScore: f.score, maskAreaPx: areaPx, areaCm2: areaCm2 && Math.round(areaCm2), candidates, likelyNonFood: bestIsNonFood, portion };
+        const portionCtx = {
+          areaCm2,
+          container: cont ? { kind: cont.label as 'bowl' | 'cup' | 'glass', widthCm } : undefined,
+        };
+        const portion = top ? estimatePortion(top, portionCtx) : null;
+        return { box: f.box, detScore: f.score, maskAreaPx: Math.round(areaPx), maskCoverage: Math.round((segPx / boxPx) * 100) / 100, areaCm2: areaCm2 && Math.round(areaCm2), candidates, likelyNonFood: bestIsNonFood, portion, portionCtx };
       }),
     );
 
@@ -190,7 +192,7 @@ export class MealVisionEngine {
   }
 
   /** One binary mask (W×H, row-major) per box. */
-  private async segment(image: RawImage, boxes: Box[]): Promise<Uint8Array[]> {
+  async segment(image: RawImage, boxes: Box[]): Promise<Uint8Array[]> {
     const { model, processor } = this.sam!;
     const centres = boxes.map(([x1, y1, x2, y2]) => [[(x1 + x2) / 2, (y1 + y2) / 2]]);
     const inputs = await processor(image, { input_boxes: [boxes], input_points: [centres] });

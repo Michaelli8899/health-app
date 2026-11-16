@@ -34,6 +34,20 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,png,svg,webmanifest}', 'datasets/*.{json,bin}'],
         maximumFileSizeToCacheInBytes: 12 * 1024 * 1024,
         navigateFallback: 'index.html',
+        // ONNX Runtime's WASM binaries come from a CDN at runtime; cache them for offline use.
+        // (Model weights are cached by Transformers.js itself in the browser Cache API.)
+        runtimeCaching: [
+          {
+            urlPattern: ({ url }) => url.pathname.endsWith('.wasm'),
+            handler: 'CacheFirst',
+            options: { cacheName: 'wasm', expiration: { maxEntries: 10 } },
+          },
+          {
+            urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/npm\/onnxruntime-web/,
+            handler: 'CacheFirst',
+            options: { cacheName: 'onnxruntime-wasm', expiration: { maxEntries: 20 } },
+          },
+        ],
       },
     }),
   ],

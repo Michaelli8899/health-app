@@ -65,3 +65,17 @@ describe('portion', () => {
     expect(s.low).toBeLessThan(s.grams);
   });
 });
+
+import { rectLongSidePx } from './calibrate';
+describe('card calibration geometry', () => {
+  it('recovers a rotated rectangle long side from mask moments', () => {
+    const w = 300, h = 300, m = new Uint8Array(w * h);
+    const L = 171, S = 108, a = 0.5; // card-like 85.6 × 54 at 2 px/mm, rotated ~29°
+    for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+      const dx = x - 150, dy = y - 150;
+      const u = dx * Math.cos(a) + dy * Math.sin(a), v = -dx * Math.sin(a) + dy * Math.cos(a);
+      if (Math.abs(u) <= L / 2 && Math.abs(v) <= S / 2) m[y * w + x] = 1;
+    }
+    expect(rectLongSidePx(fitEllipse(m, w)!.majorAxisPx)).toBeCloseTo(L, -0.5);
+  });
+});
