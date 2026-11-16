@@ -1,0 +1,12 @@
+{
+  "name": "scripts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "foods": "python3 build_foods.py && python3 resolve_visual_labels.py",
+    "embeddings": "node build_text_embeddings.mjs"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.2"
+  }
+}

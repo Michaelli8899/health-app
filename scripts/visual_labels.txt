@@ -1,0 +1,207 @@
+# Visual food vocabulary for on-device photo identification (CLIP).
+# Format:  label shown/prompted | USDA keywords (all must appear in the USDA name) [| keywords to exclude]
+# The resolver picks the shortest matching USDA name. Review scripts/.cache/visual_labels_resolved.tsv after changes.
+#
+# --- grains, starches
+white rice | rice, white, long-grain, regular, enriched, cooked
+brown rice | rice, brown, long-grain, cooked
+fried rice | fried rice
+spaghetti | pasta, cooked, enriched, without added salt | whole, spinach
+pasta | pasta, cooked, enriched, without added salt | whole, spinach
+whole wheat pasta | pasta, whole-wheat, cooked
+macaroni and cheese | macaroni and cheese | dry, mix, box
+lasagna | lasagna, cheese, frozen, prepared
+egg noodles | noodles, egg, cooked, enriched | spinach
+noodle soup | soup, chicken noodle, canned, prepared with equal volume water | low
+rice noodles | rice noodles, cooked
+couscous | couscous, cooked
+quinoa | quinoa, cooked
+oatmeal | cereals, oats, regular and quick and instant, unenriched, cooked with water
+porridge | cereals, oats, regular and quick and instant, unenriched, cooked with water
+granola | granola, homemade
+breakfast cereal with milk | cereals ready-to-eat, general mills, cheerios
+cornflakes | corn flakes
+white bread | bread, white, commercially prepared | toasted, reduced, low
+toast | bread, white, commercially prepared, toasted | reduced
+whole wheat bread | bread, whole-wheat, commercially prepared | toasted
+sourdough bread | bread, french or vienna (includes sourdough) | toasted
+bagel | bagels, plain, enriched, with calcium propionate (includes onion, poppy, sesame)
+croissant | croissants, butter
+english muffin | english muffins, plain, enriched
+pita bread | bread, pita, white, enriched
+naan | naan
+flour tortilla | tortillas, ready-to-bake or -fry, flour, refrigerated
+corn tortilla | tortillas, ready-to-bake or -fry, corn | without
+pancakes | pancakes, plain, prepared from recipe
+waffles | waffles, plain, prepared from recipe
+french toast | french toast, prepared from recipe
+crackers | crackers, standard snack-type, regular | reduced, sandwich
+dinner roll | rolls, dinner, plain, commercially prepared
+hamburger bun | rolls, hamburger or hotdog, plain
+baked potato | potatoes, baked, flesh and skin, without salt
+mashed potatoes | potatoes, mashed, home-prepared, whole milk and butter added
+boiled potatoes | potatoes, boiled, cooked without skin, flesh, without salt
+roast potatoes | potatoes, roasted, salt added in processing, frozen, unprepared
+french fries | potatoes, french fried, all types, salt not added in processing, frozen, oven-heated
+potato chips | snacks, potato chips, plain, salted
+sweet potato | sweet potato, cooked, baked in skin, flesh, without salt
+corn on the cob | corn, sweet, yellow, cooked, boiled, drained, without salt
+# --- meat, poultry, fish, eggs
+grilled chicken breast | chicken, broilers or fryers, breast, meat only, cooked, roasted
+fried chicken | chicken, broilers or fryers, breast, meat and skin, cooked, fried, batter
+chicken thigh | chicken, broilers or fryers, thigh, meat only, cooked, roasted
+chicken wings | chicken, broilers or fryers, wing, meat and skin, cooked, roasted
+chicken nuggets | chicken, nuggets | restaurant
+roast chicken | chicken, roasting, meat only, cooked, roasted
+turkey breast | turkey, whole, breast, meat only, cooked, roasted
+steak | beef, top sirloin, steak, separable lean and fat, trimmed to 1/8" fat, all grades, cooked, broiled
+roast beef | beef, rib, whole (ribs 6-12), separable lean and fat, trimmed to 1/8" fat, all grades, cooked, roasted
+ground beef | beef, ground, 85% lean meat / 15% fat, crumbles, cooked, pan-browned
+hamburger patty | beef, ground, 80% lean meat / 20% fat, patty, cooked, broiled
+meatballs | meatballs, frozen, italian style
+beef stew | beef stew, canned entree
+pork chop | pork, fresh, loin, center loin (chops), bone-in, separable lean and fat, cooked, broiled
+pulled pork | pork, fresh, shoulder, whole, separable lean and fat, cooked, roasted
+bacon | pork, cured, bacon, cooked, baked
+ham | ham, sliced, regular (approximately 11% fat)
+sausage | sausage, pork, fresh, cooked
+hot dog | frankfurter, beef, unheated
+lamb chop | lamb, loin, separable lean and fat, trimmed to 1/8" fat, choice, cooked, broiled
+salmon fillet | fish, salmon, atlantic, farmed, cooked, dry heat
+tuna | fish, tuna, light, canned in water, drained solids | without salt
+white fish fillet | fish, cod, atlantic, cooked, dry heat
+fried fish | fish, fish sticks, frozen, prepared
+shrimp | crustaceans, shrimp, cooked
+fried egg | egg, whole, cooked, fried
+scrambled eggs | egg, whole, cooked, scrambled
+boiled egg | egg, whole, cooked, hard-boiled
+omelette | egg, whole, cooked, omelet
+tofu | tofu, firm, prepared with calcium sulfate | fried, dried
+# --- legumes, nuts
+black beans | beans, black, mature seeds, cooked, boiled, without salt
+kidney beans | beans, kidney, red, mature seeds, cooked, boiled, without salt
+baked beans | beans, baked, canned, plain or vegetarian
+chickpeas | chickpeas (garbanzo beans, bengal gram), mature seeds, cooked, boiled, without salt
+lentils | lentils, mature seeds, cooked, boiled, without salt
+hummus | hummus, commercial
+edamame | edamame, frozen, prepared
+peanuts | peanuts, all types, dry-roasted, with salt
+almonds | nuts, almonds | blanched, oil, honey, butter, paste
+walnuts | nuts, walnuts, english
+cashews | nuts, cashew nuts, dry roasted, with salt added
+peanut butter | peanut butter, smooth style, with salt
+# --- vegetables
+green salad | lettuce, cos or romaine, raw
+mixed salad greens | lettuce, green leaf, raw
+spinach | spinach, raw
+cooked spinach | spinach, cooked, boiled, drained, without salt
+kale | kale, raw
+broccoli | broccoli, cooked, boiled, drained, without salt
+cauliflower | cauliflower, cooked, boiled, drained, without salt
+carrots | carrots, cooked, boiled, drained, without salt
+raw carrots | carrots, raw
+green beans | beans, snap, green, cooked, boiled, drained, without salt
+peas | peas, green, cooked, boiled, drained, without salt
+corn | corn, sweet, yellow, canned, whole kernel, drained solids
+tomato | tomatoes, red, ripe, raw, year round average
+cherry tomatoes | tomatoes, red, ripe, raw, year round average
+cucumber | cucumber, with peel, raw
+bell pepper | peppers, sweet, red, raw
+onion | onions, raw
+mushrooms | mushrooms, white, cooked, boiled, drained, without salt
+zucchini | squash, summer, zucchini, includes skin, cooked, boiled, drained, without salt
+eggplant | eggplant, cooked, boiled, drained, without salt
+asparagus | asparagus, cooked, boiled, drained
+brussels sprouts | brussels sprouts, cooked, boiled, drained, without salt
+cabbage | cabbage, raw
+avocado | avocados, raw, all commercial varieties
+pickles | pickles, cucumber, dill or kosher dill
+roasted vegetables | vegetables, mixed, frozen, cooked, boiled, drained, without salt
+stir fried vegetables | vegetables, mixed, frozen, cooked, boiled, drained, without salt
+# --- fruit
+apple | apples, raw, with skin
+banana | bananas, raw
+orange | oranges, raw, all commercial varieties
+grapes | grapes, red or green (european type, such as thompson seedless), raw
+strawberries | strawberries, raw
+blueberries | blueberries, raw
+raspberries | raspberries, raw
+watermelon | watermelon, raw
+cantaloupe melon | melons, cantaloupe, raw
+pineapple | pineapple, raw, all varieties
+mango | mangos, raw
+pear | pears, raw
+peach | peaches, yellow, raw
+kiwi | kiwifruit, green, raw
+cherries | cherries, sweet, raw
+fruit salad | fruit salad, (peach and pear and apricot and pineapple and cherry), canned, water pack
+dried fruit raisins | raisins, seedless
+# --- dairy
+milk | milk, whole, 3.25% milkfat, with added vitamin d
+yogurt | yogurt, plain, whole milk
+greek yogurt | yogurt, greek, plain, whole milk
+fruit yogurt | yogurt, fruit, low fat, 9 grams protein per 8 ounce
+cheese | cheese, cheddar (includes foods
+mozzarella | cheese, mozzarella, whole milk | low
+parmesan cheese | cheese, parmesan, grated
+cottage cheese | cheese, cottage, creamed, large or small curd
+cream cheese | cheese, cream
+butter | butter, salted
+ice cream | ice creams, vanilla | light, rich, fat free
+# --- mixed dishes, fast food
+pizza | pizza, cheese topping, regular crust, frozen, cooked
+pepperoni pizza | pizza, meat and vegetable topping, regular crust, frozen, cooked
+cheeseburger | fast foods, cheeseburger; single, regular patty; plain
+hamburger | fast foods, hamburger; single, regular patty; plain
+sandwich | fast foods, submarine sandwich, ham on white bread with lettuce and tomato
+chicken sandwich | fast foods, chicken fillet sandwich, plain with pickles
+burrito | fast foods, burrito, with beans and cheese
+tacos | fast foods, taco with beef, cheese and lettuce, hard shell
+quesadilla | fast foods, quesadilla, with chicken
+nachos | fast foods, nachos, with cheese
+chili | chili con carne with beans, canned entree
+chicken stir fry | restaurant, chinese, chicken and vegetables
+fried noodles | restaurant, chinese, vegetable lo mein, without meat
+spring rolls | restaurant, chinese, egg rolls, assorted
+dumplings | potsticker or wonton, pork and vegetable, frozen, unprepared
+spaghetti bolognese | spaghetti, with meat sauce, frozen entree
+tuna salad | tuna salad
+chicken noodle soup | soup, chicken noodle, canned, prepared with equal volume water | low
+tomato soup | soup, tomato, canned, prepared with equal volume water, commercial | low
+vegetable soup | soup, vegetable with beef broth, canned, prepared with equal volume water
+# --- sauces, spreads, fats
+ketchup | catsup
+mayonnaise | salad dressing, mayonnaise, regular
+salad dressing | salad dressing, italian dressing, commercial, regular
+olive oil | oil, olive, salad or cooking
+tomato sauce | sauce, pasta, spaghetti/marinara, ready-to-serve | low
+gravy | gravy, beef, canned, ready-to-serve
+soy sauce | soy sauce made from soy and wheat (shoyu)
+jam | jams and preserves
+honey | honey
+maple syrup | syrups, maple
+# --- sweets, snacks, baked
+chocolate | candies, milk chocolate | almond, rice, crisp
+dark chocolate | chocolate, dark, 70-85% cacao solids
+cookies | cookies, chocolate chip, commercially prepared, regular, higher fat, enriched
+cake | cake, chocolate, commercially prepared with chocolate frosting, in-store bakery
+cheesecake | cake, cheesecake, commercially prepared
+brownie | brownies, commercially prepared
+muffin | muffins, blueberry, commercially prepared
+doughnut | doughnuts, cake-type, plain (includes unsugared, old-fashioned)
+apple pie | pie, apple, commercially prepared, enriched flour
+popcorn | snacks, popcorn, air-popped
+pretzels | snacks, pretzels, hard, plain, salted
+granola bar | snacks, granola bars, hard, plain
+# --- drinks
+water | beverages, water, tap, drinking
+coffee | beverages, coffee, brewed, prepared with tap water | decaf
+tea | beverages, tea, black, brewed, prepared with tap water | decaf
+orange juice | orange juice, raw
+apple juice | apple juice, canned or bottled, unsweetened, without added ascorbic acid
+soda | beverages, carbonated, cola, regular
+beer | alcoholic beverage, beer, regular, all
+wine | alcoholic beverage, wine, table, red
+protein shake | beverages, protein powder whey based
+# added
+soba noodles | noodles, japanese, soba, cooked
